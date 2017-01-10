@@ -43,7 +43,7 @@ def drawRandomRect(img):
         g = clamp(g + random.uniform(-1, 1) * 0.3, 0, 255)
         b = clamp(b + random.uniform(-1, 1) * 0.3, 0, 255)
 
-img = Image.new('RGBA', (800, 500), (0, 0, 0, 255))
+img = Image.new('RGBA', (800, 600), (0, 0, 0, 255))
 #draw = ImageDraw.Draw(img)
 
 drawRandomRect(img)
