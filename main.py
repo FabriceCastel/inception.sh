@@ -1,54 +1,64 @@
 from PIL import Image, ImageDraw
 import random
-
-def clamp(a, b, c):
-    return max(b, min(a, c))
-
-def drawDrop(img, pos, rad, rgb):
-    for x in range(max(0, pos[0] - rad), min(img.size[0] - 1, pos[0] + rad)):
-        for y in range(max(0, pos[1] - rad), min(img.size[1] - 1, pos[1] + rad)):
-            if(random.uniform(0, 1) < 0.05):
-                img.putpixel((int(x), int(y)), rgb)
-
-def drawRandomRect(img):
-    x = img.size[1] / 2
-    y = 0
-
-    r = 105
-    g = 220
-    b = 220
-
-    for i in range(100000):
-        drawDrop(img, (int(x), int(y)), 10, (int(r), int(g), int(b)))
-        x = clamp(x + random.uniform(-1, 1) * 5, 0, img.size[0] - 1)
-        y = clamp(y + random.uniform(-1, 1) * 5, 0, img.size[1] - 1)
-        
-        # attract to centre
-        """attr = 5000
-        attrstr = 1
-
-        if(random.random() < (abs(x + img.size[0]/2) / attr)):
-            if(x > img.size[0] / 2):
-                x -= random.uniform(0, attrstr)
-            else:
-                x += random.uniform(0, attrstr)
-        
-        if(random.random() < (abs(y + img.size[1]/2) / attr)):
-            if(y > img.size[1] / 2):
-                y -= random.uniform(0, attrstr)
-            else:
-                y += random.uniform(0, attrstr)
-"""
-        r = clamp(r + random.uniform(-1, 1) * 0.3, 0, 255)
-        g = clamp(g + random.uniform(-1, 1) * 0.3, 0, 255)
-        b = clamp(b + random.uniform(-1, 1) * 0.3, 0, 255)
+from functools import reduce
 
 img = Image.new('RGBA', (800, 500), (0, 0, 0, 255))
-#draw = ImageDraw.Draw(img)
+painter = ImageDraw.Draw(img)
 
-drawRandomRect(img)
 
-#del draw
+class Building():
+    
+    def __init__(self, northWest, southEast, painter):
+        self.northWest = northWest
+        self.southEast = southEast 
+        self.painter = painter
+        
+    
+    def draw(self):
+        self.painter.rectangle(self.northWest + self.southEast, fill = (55, 255, 255, 255))
+
+    def north_of(self, building):
+        return self.southEast[1] <= building.northWest[1]
+
+    def south_of(self, building):
+        return self.northWest[1] >= building.southEast[1]
+
+    def east_of(self, building):
+        return self.northWest[0] >= building.southEast[0]
+
+    def west_of(self, building):
+        return self.southEast[0] <= building.northWest[0]
+
+    def intersects(self, building):
+        return not (self.north_of(building) or self.south_of(building)\
+                    or self.east_of(building) or self.west_of(building)) 
+                        
+buildings = []
+
+buildingSize = (60, 60)
+
+for i in range(14):
+    while True: 
+        northWest = (random.randrange(img.size[0] - buildingSize[0]),\
+                     random.randrange(img.size[1] - buildingSize[1]))
+        southEast = (northWest[0] + buildingSize[0], northWest[1] + buildingSize[1])
+        print("I'm a random building", northWest + southEast)
+        print("I'm the buildings printed so far!", buildings)
+        building = Building(northWest, southEast, painter)
+        valid = True        
+
+        for b in buildings: 
+            if building.intersects(b):
+                valid = False         
+
+        print("Am I a valid building???", valid)        
+        if valid == True:
+            buildings.append(building)
+            building.draw()
+            break
+
+
+
 
 img.save('test.png')
 
