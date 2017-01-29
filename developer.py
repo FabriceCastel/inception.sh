@@ -9,6 +9,6 @@ class Developer(Agent):
         self.B = 50
         self.G = 200
 
-     def develop(self, land):
-         pass
+    def develop(self, land):
+        pass
 

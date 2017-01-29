@@ -6,6 +6,7 @@ class Plat:
 
     def draw(self, painter):
         vertexCount = len(self.boundaries)
+        print(self.boundaries)
 
         for vertexId in range(vertexCount):
             start = self.boundaries[vertexId]

@@ -1,4 +1,6 @@
 class Population:
+    def __init__(self):
+        self.people = []
 
-    def __init__(self, popList):
-        self.popList = popList
+    def add(self, people):
+        self.people.append(people)
