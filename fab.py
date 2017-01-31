@@ -11,21 +11,9 @@ painter = ImageDraw.Draw(image)
 
 land = Land()
 
-population = Population()
-developer = Developer((50, 50))
-surveyor = Surveyor((300, 200))
-planner = UrbanPlanner((400, 200), land, population, surveyor, developer)
-people = [planner, developer, surveyor]
-for i in range(10):
-    people.append(Person((300, 300)))
-
-population.add(people)
+planner = UrbanPlanner((400, 200))
 
 planner.createCity()
-
-plats = planner.getPlats()
-
-for plat in plats:
-    plat.draw(painter)
+planner.drawCity(painter)
 
 image.save('fab.png')
