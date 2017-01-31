@@ -1,5 +1,5 @@
 #!/bin/bash
 
-python3 main.py
-imgcat test.png
+python3 fab.py
+imgcat fab.png
 
