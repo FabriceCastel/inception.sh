@@ -14,12 +14,12 @@ class UrbanPlanner(Agent):
         self.surveyor = Surveyor(position)
         self.blocks = []
         self.roads = []
-
+    
     def createCity(self):
         roads = self.roadBuilder.build()
         blocks = self.findBlocks(roads)
-        #for block in blocks:
-        #    self.surveyor.constructPlats(block)
+        for block in blocks:
+            self.surveyor.initializePlats(block)
 
         self.roads += roads
         self.blocks += blocks
@@ -28,13 +28,12 @@ class UrbanPlanner(Agent):
         scale = 4
         for road in self.roads:
             imgDraw.line((road.start.x*scale, road.start.y*scale, road.end.x*scale, road.end.y*scale), fill = (255, 100, 100, 255))
-
+        print(block.plats)
         for block in self.blocks:
             for i in range(len(block.bounds)):
                 start = block.bounds[i]
                 end = block.bounds[(i + 1) % len(block.bounds)]
                 imgDraw.line((start.x*scale, start.y*scale, end.x*scale, end.y*scale), fill = (255, 255, 255, 200))
-
         for block in self.blocks:
             for plat in block.plats:
                 for i in range(len(plat.bounds)):
