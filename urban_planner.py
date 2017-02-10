@@ -28,7 +28,6 @@ class UrbanPlanner(Agent):
         scale = 4
         for road in self.roads:
             imgDraw.line((road.start.x*scale, road.start.y*scale, road.end.x*scale, road.end.y*scale), fill = (255, 100, 100, 255))
-        print(block.plats)
         for block in self.blocks:
             for i in range(len(block.bounds)):
                 start = block.bounds[i]
