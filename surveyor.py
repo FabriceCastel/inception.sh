@@ -45,12 +45,11 @@ class Surveyor(Agent):
         platPos = startPos - platWidth
         platEndPos = startPos
         platPositions = []
-        i = 0
         while platPos < endPos - platWidth:
-            i += 1
             platPos = platPos + platWidth       
             platEndPos = platPos + platWidth
             platPositions.append([platPos, platEndPos])
+        print(platPositions)
         return platPositions
 
     def findPlatWidth(self, longSide):
@@ -59,7 +58,7 @@ class Surveyor(Agent):
         @param float|int longSide: the longer side
         """ 
         platWidth = longSide
-        while 10 < platWidth: 
+        while 40 < platWidth: 
             platWidth = platWidth / 2
         return platWidth
         
