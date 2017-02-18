@@ -28,7 +28,7 @@ class UrbanPlanner(Agent):
         scale = 4
         for road in self.roads:
             imgDraw.line((road.start.x*scale, road.start.y*scale, road.end.x*scale, road.end.y*scale), fill = (255, 100, 100, 255))
-        print(block.plats)
+
         for block in self.blocks:
             for i in range(len(block.bounds)):
                 start = block.bounds[i]
@@ -60,10 +60,10 @@ class UrbanPlanner(Agent):
 
         return [item for sublist in list(map(lambda vpair:\
                 list(map(lambda hpair:\
-                        Block([Point(vpair[0].start.x + p, hpair[0].start.y + p),\
-                               Point(vpair[0].start.x + p, hpair[1].start.y - p),\
+                        Block([Point(vpair[0].start.x + p, hpair[1].start.y - p),\
                                Point(vpair[1].start.x - p, hpair[1].start.y - p),\
-                               Point(vpair[1].start.x - p, hpair[0].start.y + p)]),\
+                               Point(vpair[1].start.x - p, hpair[0].start.y + p),\
+                               Point(vpair[0].start.x + p, hpair[0].start.y + p)]),\
                     hpairs)),\
                 vpairs)) for item in sublist]
                                 

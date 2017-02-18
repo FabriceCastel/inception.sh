@@ -1,14 +1,14 @@
 from PIL import Image, ImageDraw
 
 class Plat:
-    def __init__(self, boundaries):
-        self.boundaries = boundaries
+    def __init__(self, bounds):
+        self.bounds = bounds
 
     def draw(self, painter):
-        vertexCount = len(self.boundaries)
-        print(self.boundaries)
+        vertexCount = len(self.bounds)
+        print(self.bounds)
 
         for vertexId in range(vertexCount):
-            start = self.boundaries[vertexId]
-            end = self.boundaries[(vertexId + 1) % vertexCount]
+            start = self.bounds[vertexId]
+            end = self.bounds[(vertexId + 1) % vertexCount]
             painter.line(start + end, fill = (255, 255, 255, 255)) 
